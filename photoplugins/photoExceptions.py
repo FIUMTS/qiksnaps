@@ -1,4 +1,4 @@
 
 
-class nextClassException(Exception):
+class NextClassException(Exception):
     pass

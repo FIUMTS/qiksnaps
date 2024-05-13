@@ -1,26 +1,27 @@
-from .photoExceptions import nextClassException
+from .photoExceptions import NextClassException
 import pygame
 from datetime import datetime
 import sys
 
-class laststep:
+
+class LastStep:
 
     def __init__(self):
         self.count = 0
         self.time = None
         self.fontObj = pygame.font.Font('fonts/segoe-ui.ttf', 16)
 
-    def run(self, display = None, events = None):
+    def run(self, display=None, events=None):
         #set the time on the first run
-        if self.time == None:
+        if self.time is None:
             self.time = datetime.now()
 
-        if display == None:
+        if display is None:
             print("No pygame in laststep")
             pygame.quit()
 
         img = pygame.image.load("images/end.png").convert()
-        display.blit(img, (0,0))
+        display.blit(img, (0, 0))
         pygame.display.flip()
 
         for event in events:
@@ -37,11 +38,11 @@ class laststep:
 
         #if 9 or more seconds pass, clear the screen and go to the next step
         if timetest.total_seconds() > 9:
-            display.fill((0,0,0))
+            display.fill((0, 0, 0))
             pygame.display.flip()
             pygame.event.clear()
             self.time = None
-            raise nextClassException("Moving on from the end.")
+            raise NextClassException("Moving on from the end.")
 
     def __str__(self):
-        return "Last Step launch time:%s current time: %s"%(self.time, datetime.now())
+        return "Last Step launch time:%s current time: %s" % (self.time, datetime.now())

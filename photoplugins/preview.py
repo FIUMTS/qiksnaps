@@ -1,4 +1,4 @@
-from .photoExceptions import nextClassException
+from .photoExceptions import NextClassException
 import pygame
 import pygame.camera
 import sys
@@ -48,7 +48,7 @@ class previewCamera:
                 pygame.display.flip()
                 pygame.event.clear()
 
-                raise nextClassException("Moving on from preview.")
+                raise NextClassException("Moving on from preview.")
 
     def __str__(self):
         return "Camera preview step"

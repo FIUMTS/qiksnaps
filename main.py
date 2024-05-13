@@ -1,20 +1,18 @@
-from photomanager import photoManager
-from photoplugins.step1 import step1
-from photoplugins.flash import flash
-from photoplugins.end import laststep
+from photomanager import PhotoManager
+from photoplugins.step1 import Step1
+from photoplugins.flash import Flash
+from photoplugins.end import LastStep
 from photoplugins.preview import previewCamera
-from photoplugins.email import emailPicture
-
-
+from photoplugins.email import EmailPicture
 
 if __name__ == "__main__":
     print("Starting FIU photobooth")
-    p = photoManager()
-    s1 = step1()
+    p = PhotoManager()
+    s1 = Step1()
     s2 = previewCamera()
-    s3 = flash()
-    s4 = laststep()
-    email = emailPicture()
+    s3 = Flash()
+    s4 = LastStep()
+    email = EmailPicture()
     p.register(s1)
     p.register(s2)
     p.register(s3)

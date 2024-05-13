@@ -1,32 +1,30 @@
 import pygame
-from photoplugins.photoExceptions import nextClassException
+from photoplugins.photoExceptions import NextClassException
 
-class photoManager:
+
+class PhotoManager:
     _instance = None
-
 
     def __new__(self):
         if self._instance is None:
-            self._instance  = super(photoManager, self).__new__(self)
+            self._instance = super(PhotoManager, self).__new__(self)
             self._instance.classes = []
             pygame.init()
-            self._instance.display = pygame.display.set_mode((1080,1920), pygame.FULLSCREEN)
+            self._instance.display = pygame.display.set_mode((1080, 1920), pygame.FULLSCREEN)
 
         return self._instance
 
-
     def run(self):
-        aClass  = self.classes[0]
-        print("Running %s"%(aClass))
+        a_class = self.classes[0]
+        #print("Running %s" % (a_class))
 
         try:
-            aClass.run(self.display, pygame.event.get())
+            a_class.run(self.display, pygame.event.get())
         #make an expection class just for this
-        except nextClassException:
-            aClass = self.classes.pop(0)
-            self.classes.append(aClass)
+        except NextClassException:
+            a_class = self.classes.pop(0)
+            self.classes.append(a_class)
 
-
-    def register(self, aClass):
+    def register(self, a_class):
         #print(aClass)
-        self.classes.append(aClass)
+        self.classes.append(a_class)
