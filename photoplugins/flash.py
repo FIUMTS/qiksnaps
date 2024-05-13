@@ -1,25 +1,25 @@
-from .photoExceptions import nextClassException
+from .photoExceptions import NextClassException
 import pygame
 import time
 import sys
 from datetime import datetime, timedelta
 
 
-class flash:
+class Flash:
 
     def __init__(self):
         self.time = None
 
-    def run(self, display = None, events = None):
+    def run(self, display=None, events=None):
 
-        if self.time == None:
+        if self.time is None:
             self.time = datetime.now()
 
-        if display == None:
+        if display is None:
             print("No pygame in step 2")
             pygame.quit()
 
-        display.fill((255,255,255))
+        display.fill((255, 255, 255))
         print("Step 2")
         for event in events:
             if event.type == pygame.QUIT:
@@ -32,11 +32,11 @@ class flash:
                     sys.exit()
 
         pygame.display.update()
-        timetest = (datetime.now() - self.time)/timedelta(microseconds=1)
+        timetest = (datetime.now() - self.time) / timedelta(microseconds=1)
 
         if timetest > 800000:
             pygame.event.clear()
-            raise nextClassException("Moving on from Step 2.")
+            raise NextClassException("Moving on from Step 2.")
 
     def __str__(self):
         return "Flash, smile!"

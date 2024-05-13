@@ -1,20 +1,21 @@
-from .photoExceptions import nextClassException
+from .photoExceptions import NextClassException
 import pygame
 import sys
 
-class step1:
+
+class Step1:
 
     def __init__(self):
         self.count = 0
 
-    def run(self, display = None, events = None):
+    def run(self, display=None, events=None):
 
-        if display == None:
+        if display is None:
             print("No pygame in step 2")
             pygame.quit()
 
         img = pygame.image.load("images/idle.png").convert()
-        display.blit(img, (0,0))
+        display.blit(img, (0, 0))
         pygame.display.flip()
 
         for event in events:
@@ -30,9 +31,9 @@ class step1:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print("Next!")
                 pygame.event.clear()
-                display.fill((255,255,255))
+                display.fill((255, 255, 255))
                 pygame.display.flip()
-                raise nextClassException("Moving on from Step 1.")
+                raise NextClassException("Moving on from Step 1.")
 
     def __str__(self):
         return "Step 1"
