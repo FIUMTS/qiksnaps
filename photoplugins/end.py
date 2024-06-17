@@ -12,7 +12,7 @@ class LastStep:
         self.time = None
         self.fontObj = pygame.font.Font('fonts/segoe-ui.ttf', 16)
 
-    def run(self, display=None, events=None):
+    def run(self, display=None, events=None, loopid=-1):
         #set the time on the first run
         if self.time is None:
             self.time = datetime.now()

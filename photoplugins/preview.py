@@ -14,7 +14,7 @@ class previewCamera:
         self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280, 720))
         self.cam.start()
 
-    def run(self, display=None, events=None):
+    def run(self, display=None, events=None, loopid=-1):
 
         if display is None:
             print("No pygame in step 2")

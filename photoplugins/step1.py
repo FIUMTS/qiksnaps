@@ -9,7 +9,7 @@ class Step1:
     def __init__(self):
         self.count = 0
 
-    def run(self, display=None, events=None):
+    def run(self, display=None, events=None, loopid=-1):
 
         if display is None:
             print("No pygame in step 2")

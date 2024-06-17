@@ -20,11 +20,15 @@ if __name__ == "__main__":
     p.register(s3)
     p.register(email)
     p.register(s4)
+    counter = 1
 
     while True:
         try:
-            p.run()
+            p.run(counter)
+            counter = counter + 1
         except:
             cleanup()
             print("Cleaning up")
             sys.exit()
+
+
