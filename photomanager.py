@@ -10,6 +10,8 @@ class PhotoManager:
             self._instance = super(PhotoManager, self).__new__(self)
             self._instance.classes = []
             pygame.init()
+            # Stop double text on touch screens
+            pygame.event.set_blocked([pygame.FINGERUP, pygame.FINGERDOWN])
             self._instance.display = pygame.display.set_mode((1080, 1920), pygame.FULLSCREEN)
 
         return self._instance
