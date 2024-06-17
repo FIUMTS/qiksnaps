@@ -35,7 +35,6 @@ class Step1:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print("Next!")
                 pygame.event.clear()
-                display.fill((255, 255, 255))
                 pygame.display.flip()
                 raise NextClassException("Moving on from Step 1.")
 
