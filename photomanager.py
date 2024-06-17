@@ -20,7 +20,6 @@ class PhotoManager:
 
         try:
             a_class.run(self.display, pygame.event.get())
-        #make an expection class just for this
         except NextClassException:
             a_class = self.classes.pop(0)
             self.classes.append(a_class)

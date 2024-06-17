@@ -3,7 +3,7 @@ import pygame
 import time
 import sys
 from datetime import datetime, timedelta
-
+from photoplugins.cleanup import cleanup
 
 class Flash:
 
@@ -17,6 +17,7 @@ class Flash:
 
         if display is None:
             print("No pygame in step 2")
+            cleanup()
             pygame.quit()
 
         display.fill((255, 255, 255))
@@ -24,11 +25,13 @@ class Flash:
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
+                cleanup()
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
+                    cleanup()
                     sys.exit()
 
         pygame.display.update()
