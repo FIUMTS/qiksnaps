@@ -1,11 +1,13 @@
+import sys
 from photomanager import PhotoManager
 from photoplugins.step1 import Step1
 from photoplugins.flash import Flash
 from photoplugins.end import LastStep
 from photoplugins.preview import previewCamera
 from photoplugins.email import EmailPicture
-
+from photoplugins.cleanup import cleanup
 if __name__ == "__main__":
+    cleanup()
     print("Starting FIU photobooth")
     p = PhotoManager()
     s1 = Step1()
@@ -20,4 +22,9 @@ if __name__ == "__main__":
     p.register(s4)
 
     while True:
-        p.run()
+        try:
+            p.run()
+        except:
+            cleanup()
+            print("Cleaning up")
+            sys.exit()

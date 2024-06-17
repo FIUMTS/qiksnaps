@@ -2,6 +2,7 @@ from .photoExceptions import NextClassException
 import pygame
 from datetime import datetime
 import sys
+from photoplugins.cleanup import cleanup
 
 
 class LastStep:
@@ -18,6 +19,7 @@ class LastStep:
 
         if display is None:
             print("No pygame in laststep")
+            cleanup()
             pygame.quit()
 
         img = pygame.image.load("images/end.png").convert()
@@ -27,11 +29,13 @@ class LastStep:
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
+                cleanup()
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
+                    cleanup()
                     sys.exit()
 
         timetest = datetime.now() - self.time

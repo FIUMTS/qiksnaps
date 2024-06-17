@@ -2,6 +2,7 @@ from .photoExceptions import NextClassException
 import pygame
 import pygame.camera
 import sys
+from photoplugins.cleanup import cleanup
 
 
 class previewCamera:
@@ -10,7 +11,7 @@ class previewCamera:
         self.count = 0
         pygame.camera.init()
         print(pygame.camera.list_cameras())
-        self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280,720))
+        self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280, 720))
         self.cam.start()
 
     def run(self, display=None, events=None):
@@ -34,16 +35,19 @@ class previewCamera:
             if event.type == pygame.QUIT:
                 self.cam.stop()
                 pygame.quit()
+                cleanup()
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.cam.stop()
+                    cleanup()
                     pygame.quit()
                     sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print("Next!")
+                pygame.image.save(camimg, "snap/me.png")
                 display.fill((0, 0, 0))
                 pygame.display.flip()
                 pygame.event.clear()
