@@ -19,7 +19,7 @@ class EmailPicture:
         self.keyboard = None
         self.font = pygame.font.SysFont('../fonts/segoe-ui.ttf', 55)
         self.counter = 0
-        
+
     def run(self, display=None, events=None, loopid=-1):
 
         color = pygame.Color(8,30,63)
