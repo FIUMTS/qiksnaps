@@ -18,8 +18,9 @@ class EmailPicture:
         self.layout = VKeyboardLayout(VKeyboardLayout.AZERTY)
         self.keyboard = None
         self.font = pygame.font.SysFont('../fonts/segoe-ui.ttf', 55)
-
-    def run(self, display=None, events=None):
+        self.counter = 0
+        
+    def run(self, display=None, events=None, loopid=-1):
 
         color = pygame.Color(8,30,63)
         input_rect = pygame.Rect(80, 1300, 900, 80)
@@ -29,7 +30,9 @@ class EmailPicture:
 
         if self.keyboard is None:
             self.keyboard = VKeyboard(display, consumer, self.layout)
-        self.keyboard.update(events)
+        if self.counter < loopid:
+            self.keyboard.update(events)
+            self.counter = self.counter + 1
 
         pygame.draw.rect(display, color, input_rect, border_radius=60)
         display.blit(self.font.render(self.keyboard.get_text(), True, (255, 255, 255)), (120, 1320))

@@ -10,7 +10,7 @@ class Flash:
     def __init__(self):
         self.time = None
 
-    def run(self, display=None, events=None):
+    def run(self, display=None, events=None, loopid=-1):
 
         if self.time is None:
             self.time = datetime.now()
