@@ -21,17 +21,22 @@ class EmailPicture(step):
     def run(self, display=None, events=None, session=None):
 
         color = pygame.Color(8, 30, 63)
+        btn_color = pygame.Color(12, 18, 26)
         input_rect = pygame.Rect(80, 1100, 900, 80)
+        btn_rect = pygame.Rect(420, 1200, 190, 80)
         top = pygame.image.load("images/top.png").convert()
         user = pygame.image.load("snap/me.png").convert()
         email_text = "Enter an email address below"
 
         if self.keyboard is None:
+            self.layout = VKeyboardLayout(VKeyboardLayout.AZERTY)
             self.keyboard = VKeyboard(display, consumer, self.layout)
 
         self.keyboard.update(events)
 
         pygame.draw.rect(display, color, input_rect, border_radius=60)
+        pygame.draw.rect(display, btn_color, btn_rect, border_radius=60)
+        display.blit(self.font.render("Send", True, (255, 255, 255)), (465, 1220))
         display.blit(self.font.render(self.keyboard.get_text(), True, (255, 255, 255)), (120, 1120))
         display.blit(self.font.render(email_text, False, (0, 0, 0)), (260, 1050))
         for event in events:
@@ -48,8 +53,13 @@ class EmailPicture(step):
                     sys.exit()
 
             if event.type == pygame.MOUSEBUTTONUP or event.type == pygame.FINGERUP:
-                print("YES %s" % self.keyboard.get_text())
-                print(event.pos)
+                if 420 <= event.pos[0] <= 610 and 1200 <= event.pos[1] <= 1280:
+                    print("submit email")
+                    # Need to check if valid email address
+                    # Need to send the email
+                    self.keyboard = None
+                    display.fill((255, 255, 255))
+                    raise NextClassException()
 
         self.keyboard.draw(display)
         display.blit(top, (0, 0))
