@@ -21,6 +21,7 @@ class PreviewCamera(step):
         if display is None:
             print("No pygame in step 2")
             pygame.quit()
+
         display.fill((255, 255, 255))
         top = pygame.image.load("images/top.png").convert()
         bottom = pygame.image.load("images/bottom.png").convert()
@@ -52,8 +53,14 @@ class PreviewCamera(step):
                 if 403 <= event.pos[0] <= 672 and 1749 <= event.pos[1] <= 1875:
                     print("Photo taken, Next!")
                     self.runCountDown(display)
-                    pygame.image.save(camimg, "snap/me.png")
+                    print("getting image")
+                    # No clue why, but we need to call get_image 3 times
+                    # to get the current, image (;﹏;)
+                    myimg = self.cam.get_image()
+                    myimg = self.cam.get_image()
+                    myimg = self.cam.get_image()
 
+                    pygame.image.save(myimg, "snap/me.png")
                     raise NextClassException("Moving on from preview.")
 
     def runCountDown(self, display):
@@ -76,7 +83,6 @@ class PreviewCamera(step):
                 starttime = datetime.now()
                 display.fill((255, 255, 255))
 
-        return display
 
     def __str__(self):
         return "Camera preview step"
