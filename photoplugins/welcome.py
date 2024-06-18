@@ -1,15 +1,16 @@
 from .photoExceptions import NextClassException
+from .step import step
 import pygame
 import sys
 from photoplugins.cleanup import cleanup
 
 
-class Step1:
+class Welcome(step):
 
     def __init__(self):
         self.count = 0
 
-    def run(self, display=None, events=None, loopid=-1):
+    def run(self, display=None, events=None, session=None):
 
         if display is None:
             print("No pygame in step 2")

@@ -4,13 +4,15 @@ import time
 import sys
 from datetime import datetime, timedelta
 from photoplugins.cleanup import cleanup
+from .step import step
 
-class Flash:
+
+class Flash(step):
 
     def __init__(self):
         self.time = None
 
-    def run(self, display=None, events=None, loopid=-1):
+    def run(self, display=None, events=None, session=None):
 
         if self.time is None:
             self.time = datetime.now()

@@ -2,8 +2,14 @@ import os
 
 
 def cleanup():
-    filelist = os.listdir("snap/")
+    try:
+        filelist = os.listdir("snap/")
+    except:
+        os.mkdir("snap")
+        return
 
+    # Clean up files, don't want old user photos
+    # on the hard drive
     for f in filelist:
         try:
             os.remove("snap/" + f)
