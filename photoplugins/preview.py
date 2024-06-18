@@ -3,9 +3,11 @@ import pygame
 import pygame.camera
 import sys
 from photoplugins.cleanup import cleanup
+from datetime import datetime, timedelta
+from .step import step
 
 
-class previewCamera:
+class PreviewCamera(step):
 
     def __init__(self):
         self.count = 0
@@ -14,7 +16,7 @@ class previewCamera:
         self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (1280, 720))
         self.cam.start()
 
-    def run(self, display=None, events=None, loopid=-1):
+    def run(self, display=None, events=None, session=None):
 
         if display is None:
             print("No pygame in step 2")
@@ -46,13 +48,35 @@ class previewCamera:
                     sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print("Next!")
-                pygame.image.save(camimg, "snap/me.png")
-                display.fill((0, 0, 0))
-                pygame.display.flip()
-                pygame.event.clear()
+                print(event.pos)
+                if 403 <= event.pos[0] <= 672 and 1749 <= event.pos[1] <= 1875:
+                    print("Photo taken, Next!")
+                    self.runCountDown(display)
+                    pygame.image.save(camimg, "snap/me.png")
 
-                raise NextClassException("Moving on from preview.")
+                    raise NextClassException("Moving on from preview.")
+
+    def runCountDown(self, display):
+        count = 3
+        fontobj = pygame.font.Font('fonts/segoe-ui.ttf', 1000)
+        display.fill((255, 255, 255))
+        starttime = datetime.now()
+        while count > 0:
+
+            font_surface = fontobj.render(str(count), False, (0,0,0))
+            display.blit(font_surface, (300, 100))
+            pygame.display.flip()
+
+            currenttime = datetime.now()
+            diff = currenttime - starttime
+
+            if diff.total_seconds() > 1:
+                print("%s!" % count)
+                count = count - 1
+                starttime = datetime.now()
+                display.fill((255, 255, 255))
+
+        return display
 
     def __str__(self):
         return "Camera preview step"

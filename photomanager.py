@@ -16,12 +16,12 @@ class PhotoManager:
 
         return self._instance
 
-    def run(self, loopid):
+    def run(self, session):
         a_class = self.classes[0]
         #print("Running %s" % (a_class))
 
         try:
-            a_class.run(self.display, pygame.event.get(), loopid)
+            a_class.run(self.display, pygame.event.get(), session)
         except NextClassException:
             a_class = self.classes.pop(0)
             self.classes.append(a_class)

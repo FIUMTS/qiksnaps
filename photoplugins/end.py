@@ -3,17 +3,19 @@ import pygame
 from datetime import datetime
 import sys
 from photoplugins.cleanup import cleanup
+from .step import step
 
 
-class LastStep:
+class LastStep(step):
 
     def __init__(self):
         self.count = 0
         self.time = None
         self.fontObj = pygame.font.Font('fonts/segoe-ui.ttf', 16)
 
-    def run(self, display=None, events=None, loopid=-1):
-        #set the time on the first run
+    def run(self, display=None, events=None, session=None):
+
+        #Set the time on the first run
         if self.time is None:
             self.time = datetime.now()
 

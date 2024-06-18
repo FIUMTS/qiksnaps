@@ -1,17 +1,19 @@
 import sys
 from photomanager import PhotoManager
-from photoplugins.step1 import Step1
+from photoplugins.welcome import Welcome
 from photoplugins.flash import Flash
 from photoplugins.end import LastStep
-from photoplugins.preview import previewCamera
+from photoplugins.preview import PreviewCamera
 from photoplugins.email import EmailPicture
 from photoplugins.cleanup import cleanup
+
+
 if __name__ == "__main__":
     cleanup()
-    print("Starting FIU photobooth")
+    print("Starting Quiksnaps photobooth")
     p = PhotoManager()
-    s1 = Step1()
-    s2 = previewCamera()
+    s1 = Welcome()
+    s2 = PreviewCamera()
     s3 = Flash()
     s4 = LastStep()
     email = EmailPicture()
@@ -20,13 +22,13 @@ if __name__ == "__main__":
     p.register(s3)
     p.register(email)
     p.register(s4)
-    counter = 1
+    session = {}
 
     while True:
         try:
-            p.run(counter)
-            counter = counter + 1
-        except:
+            p.run(session)
+        except Exception as e:
+            print(e)
             cleanup()
             print("Cleaning up")
             sys.exit()
