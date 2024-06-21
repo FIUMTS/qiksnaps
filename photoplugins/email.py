@@ -31,7 +31,7 @@ class EmailPicture(step):
         input_rect = pygame.Rect(80, 1100, 900, 80)
         btn_rect = pygame.Rect(420, 1200, 190, 80)
         top = pygame.image.load("images/top.png").convert()
-        user = pygame.image.load("snap/me.png").convert()
+        user = pygame.transform.scale(pygame.image.load("snap/me.png").convert(), (640, 480))
         email_text = "Enter an email address below"
 
         if self.keyboard is None:
