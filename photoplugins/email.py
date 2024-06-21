@@ -12,7 +12,6 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 
 
-
 def consumer(text):
     print('%s' % text)
 
@@ -45,6 +44,7 @@ class EmailPicture(step):
         display.blit(self.font.render("Send", True, (255, 255, 255)), (465, 1220))
         display.blit(self.font.render(self.keyboard.get_text(), True, (255, 255, 255)), (120, 1120))
         display.blit(self.font.render(email_text, False, (0, 0, 0)), (260, 1050))
+
         for event in events:
 
             if event.type == pygame.QUIT:
@@ -66,12 +66,14 @@ class EmailPicture(step):
                     email = self.keyboard.get_text()
                     if is_valid(email):
                         print("Sending email")
-                        #send email
                         msg = make_email(email)
-                        send_email(msg, email)
-                        self.keyboard = None
-                        display.fill((255, 255, 255))
-                        raise NextClassException()
+                        if send_email(msg, email):
+                            self.keyboard = None
+                            display.fill((255, 255, 255))
+                            raise NextClassException()
+                        else:
+                            display.blit(self.font.render("Enter a valid email address", True, (255, 0, 0)),
+                                         (260, 1010))
                     else:
                         display.blit(self.font.render("Enter a valid email address", True, (255, 0, 0)), (260, 1010))
 
@@ -100,8 +102,14 @@ def make_email(email):
 
 
 def send_email(message, to):
-    with smtplib.SMTP("smtpout.fiu.edu", 25) as server:
-        server.sendmail("no-reply@fiu.edu", to, message.as_string())
+    try:
+        with smtplib.SMTP("smtpout.fiu.edu", 25) as server:
+            server.sendmail("no-reply@fiu.edu", to, message.as_string())
+    except:
+        print("Email not sent...")
+        return False
+
+    return True
 
 
 def is_valid(email):
