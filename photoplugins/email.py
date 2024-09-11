@@ -94,7 +94,7 @@ def make_email(email):
     body_part = MIMEText("See attached for your photo.")
     message.attach(body_part)
 
-    with open("snap/me.png", 'rb') as file:
+    with open("snap/me.jpeg", 'rb') as file:
         # Attach the file with filename to the email
         message.attach(MIMEApplication(file.read(), Name="me.png"))
 

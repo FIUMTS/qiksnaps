@@ -5,7 +5,7 @@ import sys
 from photoplugins.cleanup import cleanup
 from datetime import datetime, timedelta
 from .step import step
-
+from digicam import Digicam
 
 class PreviewCamera(step):
 
@@ -13,8 +13,9 @@ class PreviewCamera(step):
         self.count = 0
         pygame.camera.init()
         print(pygame.camera.list_cameras())
-        self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (3840, 2160))
+        self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0], (640, 480))
         self.cam.start()
+        self.dslr = Digicam()
 
 
     def run(self, display=None, events=None, session=None):
@@ -28,11 +29,11 @@ class PreviewCamera(step):
         bottom = pygame.image.load("images/bottom.png").convert()
         takephoto = pygame.image.load("images/takephoto.png").convert_alpha()
         camimg = self.cam.get_image()
-        scaled_camimg = pygame.transform.scale(camimg, (640, 480))
+        #scaled_camimg = pygame.transform.scale(camimg, (640, 480))
         display.blit(top, (0, 0))
         display.blit(bottom, (0, 1704))
         display.blit(takephoto, (403, 1749))
-        display.blit(scaled_camimg, (240, 600))
+        display.blit(camimg, (240, 600))
         pygame.display.flip()
 
         for event in events:
@@ -57,12 +58,13 @@ class PreviewCamera(step):
                     print("getting image")
                     # No clue why, but we need to call get_image 3 times
                     # to get the current, image (;﹏;)
-                    myimg = self.cam.get_image()
-                    myimg = self.cam.get_image()
-                    myimg = self.cam.get_image()
-                    print(self.cam.get_size())
+                    #myimg = self.cam.get_image()
+                    #myimg = self.cam.get_image()
+                    #myimg = self.cam.get_image()
+                    #print(self.cam.get_size())
+                    self.dslr.take_pic(pic_dir="snap/", filename="me.jpeg")
 
-                    pygame.image.save(myimg, "snap/me.png")
+                    #pygame.image.save(myimg, "snap/me.png")
                     raise NextClassException("Moving on from preview.")
 
     def runCountDown(self, display):
