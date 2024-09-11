@@ -5,7 +5,7 @@ import sys
 from photoplugins.cleanup import cleanup
 from datetime import datetime, timedelta
 from .step import step
-from digicam import Digicam
+from .digicam import Digicam
 
 class PreviewCamera(step):
 
@@ -56,13 +56,8 @@ class PreviewCamera(step):
                     print("Photo taken, Next!")
                     self.runCountDown(display)
                     print("getting image")
-                    # No clue why, but we need to call get_image 3 times
-                    # to get the current, image (;﹏;)
-                    #myimg = self.cam.get_image()
-                    #myimg = self.cam.get_image()
-                    #myimg = self.cam.get_image()
-                    #print(self.cam.get_size())
-                    self.dslr.take_pic(pic_dir="snap/", filename="me.jpeg")
+                    self.dslr.take_pic(cmd_path="C:\\Program Files (x86)\\digiCamControl\\CameraControlCmd.exe" \
+                                       , pic_dir="snap/", filename="me.jpeg")
 
                     #pygame.image.save(myimg, "snap/me.png")
                     raise NextClassException("Moving on from preview.")
@@ -70,6 +65,7 @@ class PreviewCamera(step):
     def runCountDown(self, display):
         count = 3
         fontobj = pygame.font.Font('fonts/segoe-ui.ttf', 1000)
+        fontobj2 = pygame.font.Font('fonts/segoe-ui.ttf', 75)
         display.fill((255, 255, 255))
         starttime = datetime.now()
         while count > 0:
@@ -86,6 +82,8 @@ class PreviewCamera(step):
                 count = count - 1
                 starttime = datetime.now()
                 display.fill((255, 255, 255))
-
+        font_surface = fontobj2.render("Hold that pose, saving the image", False, (0, 0, 0))
+        display.blit(font_surface, (50, 800))
+        pygame.display.flip()
     def __str__(self):
         return "Camera preview step"

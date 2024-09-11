@@ -27,7 +27,13 @@ class Digicam:
     def take_pic(self, cmd_path = None, pic_dir = None, filename = None):
 
         # if given cmd_path is not valid file, it runs find_cam_ctrl_cmd
-        if not os.path.isfile(cmd_path) or cmd_path is None:
+        if cmd_path is None:
+            cmd_path = self.find_cam_ctrl_cmd("C:\\")
+            # if cmd_path doesn't exist, CameraControlCmd.exe doesn't exist on given dir
+            if not cmd_path:
+                raise FileNotFoundError("CameraControlCmd.exe not found")
+
+        if not os.path.isfile(cmd_path):
             cmd_path = self.find_cam_ctrl_cmd("C:\\")
             # if cmd_path doesn't exist, CameraControlCmd.exe doesn't exist on given dir
             if not cmd_path:
@@ -39,7 +45,7 @@ class Digicam:
             os.mkdir(pic_dir)
 
         # ensure that file has valid extension from provided tuple
-        valid_filetypes = (".jpg", ".png", ".gif", ".pdf", ".svg")
+        valid_filetypes = (".jpg", ".png", ".gif", ".pdf", ".svg", "jpeg")
         if not filename.endswith(valid_filetypes):
             raise ValueError(f"Invalid file extension.")
 
