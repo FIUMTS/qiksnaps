@@ -10,6 +10,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
+from photoplugins.cleanup import removeMe
 
 
 def consumer(text):
@@ -73,6 +74,7 @@ class EmailPicture(step):
                         if send_email(msg, email):
                             self.keyboard = None
                             display.fill((255, 255, 255))
+                            removeMe()
                             raise NextClassException()
                         else:
                             display.blit(self.font.render("Enter a valid email address", True, (255, 0, 0)),
