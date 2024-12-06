@@ -17,3 +17,10 @@ def cleanup():
         except Exception as e:
             print(e)
             continue
+
+def removeMe():
+    try:
+        os.remove("snap/me.jpeg")
+    except Exception as e:
+        print("No me.jpeg")
+
