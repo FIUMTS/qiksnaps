@@ -1,5 +1,5 @@
 import pygame
-from photoplugins.photoExceptions import NextClassException
+from photoplugins.photoExceptions import NextClassException, PreviousClassException
 
 
 class PhotoManager:
@@ -25,6 +25,10 @@ class PhotoManager:
         except NextClassException:
             a_class = self.classes.pop(0)
             self.classes.append(a_class)
+        except PreviousClassException:
+            next_class = a_class
+            a_class = self.classes.pop(-1)
+            self.classes.insert(0, next_class)
 
     def register(self, a_class):
         #print(aClass)

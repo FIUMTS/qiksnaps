@@ -1,4 +1,4 @@
-from .photoExceptions import NextClassException
+from .photoExceptions import NextClassException, PreviousClassException
 import pygame
 import sys
 from photoplugins.cleanup import cleanup

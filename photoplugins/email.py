@@ -1,4 +1,4 @@
-from .photoExceptions import NextClassException
+from .photoExceptions import NextClassException, PreviousClassException
 import pygame
 import pygame.camera
 import sys
@@ -57,6 +57,9 @@ class EmailPicture(step):
                     cleanup()
                     pygame.quit()
                     sys.exit()
+
+                if event.key == pygame.K_b:
+                    raise PreviousClassException("Moving back from email")
 
             if event.type == pygame.MOUSEBUTTONUP or event.type == pygame.FINGERUP:
                 if 420 <= event.pos[0] <= 610 and 1200 <= event.pos[1] <= 1280:
