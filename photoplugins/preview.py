@@ -1,4 +1,4 @@
-from .photoExceptions import NextClassException
+from .photoExceptions import NextClassException, PreviousClassException
 import pygame
 import pygame.camera
 import sys
@@ -49,6 +49,9 @@ class PreviewCamera(step):
                     cleanup()
                     pygame.quit()
                     sys.exit()
+
+                if event.key == pygame.K_b:
+                    raise PreviousClassException("Moving back from preview")
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print(event.pos)

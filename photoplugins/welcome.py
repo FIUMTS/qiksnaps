@@ -1,4 +1,4 @@
-from .photoExceptions import NextClassException
+from .photoExceptions import NextClassException, PreviousClassException
 from .step import step
 import pygame
 import sys
