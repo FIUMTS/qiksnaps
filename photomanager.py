@@ -25,10 +25,14 @@ class PhotoManager:
         except NextClassException:
             a_class = self.classes.pop(0)
             self.classes.append(a_class)
-        except PreviousClassException:
-            next_class = a_class
-            a_class = self.classes.pop(-1)
-            self.classes.insert(0, next_class)
+        except PreviousClassException as e:
+            i =  int(e.__str__())
+
+            if i >= 0:
+                i = -1
+
+            self.classes = self.classes[i:] + [a_class] + self.classes[:i]
+
 
     def register(self, a_class):
         #print(aClass)

@@ -88,5 +88,6 @@ class PreviewCamera(step):
         font_surface = fontobj2.render("Hold that pose, saving the image", False, (0, 0, 0))
         display.blit(font_surface, (50, 800))
         pygame.display.flip()
+
     def __str__(self):
         return "Camera preview step"
