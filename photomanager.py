@@ -26,11 +26,14 @@ class PhotoManager:
             a_class = self.classes.pop(0)
             self.classes.append(a_class)
         except PreviousClassException as e:
-            i =  int(e.__str__())
+            try:
+                i =  int(e.__str__())
+            except ValueError:
+                i = -1
 
             if i >= 0:
                 i = -1
-
+            #order [class we want to jump back to, the class that raised the exception, all the classes before the class we jump to]
             self.classes = self.classes[i:] + [a_class] + self.classes[:i]
 
 
