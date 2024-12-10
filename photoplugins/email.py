@@ -59,7 +59,9 @@ class EmailPicture(step):
                     pygame.quit()
                     sys.exit()
 
+                #temp, need to add a back button
                 if event.key == pygame.K_F1:
+                    self.keyboard = None
                     raise PreviousClassException("-2")
 
             if event.type == pygame.MOUSEBUTTONUP or event.type == pygame.FINGERUP:
