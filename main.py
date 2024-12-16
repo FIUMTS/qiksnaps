@@ -5,6 +5,7 @@ from photoplugins.flash import Flash
 from photoplugins.end import LastStep
 from photoplugins.preview import PreviewCamera
 from photoplugins.email import EmailPicture
+from photoplugins.loading import loadingStep
 from photoplugins.cleanup import cleanup
 
 
@@ -13,11 +14,13 @@ if __name__ == "__main__":
     print("Starting Quiksnaps photobooth")
     p = PhotoManager()
     s1 = Welcome()
+    holding = loadingStep()
     s2 = PreviewCamera()
     s3 = Flash()
     s4 = LastStep()
     email = EmailPicture()
     p.register(s1)
+    p.register(holding)
     p.register(s2)
     p.register(s3)
     p.register(email)
