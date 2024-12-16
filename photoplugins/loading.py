@@ -3,14 +3,16 @@ import pygame
 import sys
 from photoplugins.cleanup import cleanup
 from .digicam import Digicam
+from .step import step
 
 
-class loadingStep:
+class loadingStep(step):
 
     def __init__(self):
         self.count = 0
+        self.dslr = Digicam()
 
-    def run(self, display=None, events=None, loopid=-1):
+    def run(self, display=None, events=None, session=None):
 
         if display is None:
             print("No pygame in loading page")
