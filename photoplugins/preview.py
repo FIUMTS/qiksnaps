@@ -68,7 +68,7 @@ class PreviewCamera(step):
     def runCountDown(self, display):
         count = 3
         fontobj = pygame.font.Font('fonts/segoe-ui.ttf', 1000)
-        fontobj2 = pygame.font.Font('fonts/segoe-ui.ttf', 75)
+        fontobj2 = pygame.font.Font('fonts/segoe-ui.ttf', 67)
         display.fill((255, 255, 255))
         starttime = datetime.now()
         while count > 0:
@@ -86,7 +86,7 @@ class PreviewCamera(step):
                 starttime = datetime.now()
                 display.fill((255, 255, 255))
         font_surface = fontobj2.render("Hold that pose, saving the image", False, (0, 0, 0))
-        display.blit(font_surface, (50, 800))
+        display.blit(font_surface, (40, 800))
         pygame.display.flip()
 
     def __str__(self):
