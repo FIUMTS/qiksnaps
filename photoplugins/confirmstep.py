@@ -26,7 +26,7 @@ class confirmstep:
         display.blit(nextBtn, (568,1310))
         display.blit(autocropBtn, (304,1127))
         display.blit(backBtn, (131,1310))
-        display.blit(user, (106, 566))
+        display.blit(user, (214, 566))
         pygame.display.flip()
 
         for event in events:
