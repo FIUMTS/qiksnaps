@@ -17,9 +17,9 @@ class confirmstep:
             pygame.quit()
 
         img = pygame.image.load("images/confirm.png").convert()
-        nextBtn = pygame.image.load("images/next.png").convert()
-        autocropBtn = pygame.image.load("images/autoCrop.png").convert()
-        backBtn = pygame.image.load("images/back.png").convert()
+        nextBtn = pygame.image.load("images/next.png").convert_alpha()
+        autocropBtn = pygame.image.load("images/autoCrop.png").convert_alpha()
+        backBtn = pygame.image.load("images/back.png").convert_alpha()
         user = pygame.transform.scale(pygame.image.load("snap/me.jpeg").convert(), (640, 480))
 
         display.blit(img, (0, 0))
