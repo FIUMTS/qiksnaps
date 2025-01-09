@@ -40,23 +40,19 @@ class confirmstep:
                     cleanup()
                     pygame.quit()
                     sys.exit()
-            '''
+
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print("Next!")
-                pygame.event.clear()
-                pygame.display.flip()
-                raise NextClassException("Moving on from Step 1.")
-            '''
-            if 568 <= event.pos[0] <= 680 and 1310 <= event.pos[1] <= 1661:
-                print("Next!")
-                pygame.event.clear()
-                pygame.display.flip()
-                raise NextClassException("Moving on from confirm/preview step.")
-            if 131 <= event.pos[0] <= 252 and 1310 <= event.pos[1] <= 1661:
-                print("back")
-                pygame.event.clear()
-                pygame.display.flip()
-                raise PreviousClassException("-2")
+                if 568 <= event.pos[0] <= 919 and 1310 <= event.pos[1] <= 1422:
+                    print("Next!")
+                    pygame.event.clear()
+                    display.fill((255,255,255))
+                    pygame.display.flip()
+                    raise NextClassException("Moving on from confirm/preview step.")
+                if 131 <= event.pos[0] <= 699 and 1310 <= event.pos[1] <= 1422:
+                    print("back")
+                    pygame.event.clear()
+                    pygame.display.flip()
+                    raise PreviousClassException("-2")
 
 
     def __str__(self):
