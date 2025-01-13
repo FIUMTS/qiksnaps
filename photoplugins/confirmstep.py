@@ -2,12 +2,14 @@ from .photoExceptions import NextClassException, PreviousClassException
 import pygame
 import sys
 from photoplugins.cleanup import cleanup
+from .yolo import yolo_detect
 
 
 class confirmstep:
 
     def __init__(self):
         self.count = 0
+        self.yolo = yolo_detect()
 
     def run(self, display=None, events=None, loopid=-1):
 
@@ -20,6 +22,7 @@ class confirmstep:
         nextBtn = pygame.image.load("images/next.png").convert_alpha()
         autocropBtn = pygame.image.load("images/autoCrop.png").convert_alpha()
         backBtn = pygame.image.load("images/back.png").convert_alpha()
+        loadingimg = pygame.image.load("images/loading.gif").convert_alpha()
         user = pygame.transform.scale(pygame.image.load("snap/me.jpeg").convert(), (640, 480))
 
         display.blit(img, (0, 0))
@@ -48,12 +51,18 @@ class confirmstep:
                     display.fill((255,255,255))
                     pygame.display.flip()
                     raise NextClassException("Moving on from confirm/preview step.")
+
                 if 131 <= event.pos[0] <= 699 and 1310 <= event.pos[1] <= 1422:
                     print("back")
                     pygame.event.clear()
                     pygame.display.flip()
                     raise PreviousClassException("-2")
 
+                if 304 <= event.pos[0] <= 655 and 1127 <= event.pos[1] <= 1239:
+                    display.blit(loadingimg, (430, 706))
+                    pygame.display.flip()
+                    self.yolo.detect("snap/me.jpeg", "snap/")
+                    raise NextClassException("Cropped imaged. Moving on from confirm/preview step.")
 
     def __str__(self):
         return "Confirm or edit"
