@@ -62,6 +62,9 @@ class confirmstep:
                     display.blit(loadingimg, (430, 706))
                     pygame.display.flip()
                     self.yolo.detect("snap/me.jpeg", "snap/")
+                    pygame.event.clear()
+                    display.fill((255, 255, 255))
+                    pygame.display.flip()
                     raise NextClassException("Cropped imaged. Moving on from confirm/preview step.")
 
     def __str__(self):
