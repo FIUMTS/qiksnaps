@@ -49,7 +49,6 @@ class confirmstep:
                     print("Next!")
                     pygame.event.clear()
                     display.fill((255,255,255))
-                    pygame.display.flip()
                     raise NextClassException("Moving on from confirm/preview step.")
 
                 if 131 <= event.pos[0] <= 699 and 1310 <= event.pos[1] <= 1422:
@@ -64,7 +63,7 @@ class confirmstep:
                     self.yolo.detect("snap/me.jpeg", "snap/")
                     pygame.event.clear()
                     display.fill((255, 255, 255))
-                    pygame.display.flip()
+                    #pygame.display.flip()
                     raise NextClassException("Cropped imaged. Moving on from confirm/preview step.")
 
     def __str__(self):
