@@ -8,13 +8,18 @@ class yolo_detect:
     def __init__(self):
         self.model = YOLO("yolov8n.pt")
 
-    def crop_image(self, img, x1, y1, x2, y2):
-        padding = 200
+    def crop_image(
+        self, img, x1, y1, x2, y2, btm_pad_percent=30, top_pad_percent=10, side_pad=0
+    ):
         h, w = img.shape[:2]
-        x1 = max(0, x1 - padding)
-        y1 = max(0, y1 - padding)
-        x2 = min(w, x2 + padding)
-        y2 = min(h, y2 + padding)
+
+        padding_bottom = int((btm_pad_percent / 100) * h)
+        padding_top = int((top_pad_percent / 100) * h)
+
+        x1 = max(0, x1 + side_pad)
+        y1 = max(0, y1 - padding_top)
+        x2 = min(w, x2 - side_pad)
+        y2 = min(h, y2 - padding_bottom)
         return img[y1:y2, x1:x2]
 
     def detect(self, image_path, save_image_dir=None):
@@ -57,7 +62,7 @@ class yolo_detect:
         try:
             if len(persons) == 1:
                 x1, y1, x2, y2 = persons[0]
-                img = self.crop_image(img, x1, y1, x2, y2)
+                img = self.crop_image(img, x1, y1, x2, y2, 47, 5, 40)
                 is_cropped = True
             elif len(persons) > 1:
                 x_min = min([p[0] for p in persons])
