@@ -35,7 +35,7 @@ class EmailPicture(step):
         email_text = "Enter an email address below"
 
         if self.keyboard is None:
-            self.layout = VKeyboardLayout(VKeyboardLayout.AZERTY)
+            self.layout = VKeyboardLayout(['1234567890', 'qwertyuiop', 'asdfghjkl', '@zxcvbnm.'])
             self.keyboard = VKeyboard(display, consumer, self.layout)
 
         self.keyboard.update(events)
