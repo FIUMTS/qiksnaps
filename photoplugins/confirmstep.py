@@ -22,7 +22,7 @@ class confirmstep:
         nextBtn = pygame.image.load("images/next.png").convert_alpha()
         autocropBtn = pygame.image.load("images/autoCrop.png").convert_alpha()
         backBtn = pygame.image.load("images/back.png").convert_alpha()
-        loadingimg = pygame.image.load("images/loading.gif").convert_alpha()
+        loadingimg = pygame.image.load("images/loading.png").convert_alpha()
         user = pygame.transform.scale(pygame.image.load("snap/me.jpeg").convert(), (640, 480))
 
         display.blit(img, (0, 0))
