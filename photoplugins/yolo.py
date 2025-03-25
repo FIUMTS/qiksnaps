@@ -3,24 +3,48 @@ import os
 from PIL import Image
 from ultralytics import YOLO
 
-
 class yolo_detect:
     def __init__(self):
         self.model = YOLO("yolov8n.pt")
 
     def crop_image(
-        self, img, x1, y1, x2, y2, btm_pad_percent=30, top_pad_percent=10, side_pad=0
+        self, img, x1, y1, x2, y2, btm_pad_percent, top_pad_percent, side_pad
     ):
         h, w = img.shape[:2]
 
-        padding_bottom = int((btm_pad_percent / 100) * h)
-        padding_top = int((top_pad_percent / 100) * h)
+        box_width = x2 - x1
+        box_height = y2 - y1
+        box_aspect_ratio = box_width / box_height
 
-        x1 = max(0, x1 + side_pad)
-        y1 = max(0, y1 - padding_top)
-        x2 = min(w, x2 - side_pad)
-        y2 = min(h, y2 - padding_bottom)
+        padding_bottom = int((btm_pad_percent / 100) * box_height)
+        padding_top = int((top_pad_percent / 100) * box_height)
+
+        print("box aspect ration", box_aspect_ratio)
+
+        if 0.9 <= box_aspect_ratio <= 1.2:
+            x1 = max(0, x1 + side_pad)
+            y1 = max(0, y1 - padding_top)
+            x2 = min(w, x2 - side_pad)
+            y2 = min(h, y2)
+        elif box_aspect_ratio < 0.5:
+            padding_bottom = int((50 / 100) * box_height)
+            padding_top = 0
+
+            x1 = max(0, x1 + side_pad)
+            y1 = max(0, y1 - padding_top)
+            x2 = min(w, x2 - side_pad)
+            y2 = min(h, y2 - padding_bottom)
+        else:
+            x1 = max(0, x1 + side_pad)
+            y1 = max(0, y1 - padding_top)
+            x2 = min(w, x2 - side_pad)
+            y2 = min(h, y2 - padding_bottom)
+
         return img[y1:y2, x1:x2]
+
+    def draw_rect(self, img, x1, y1, x2, y2):
+        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        return img
 
     def detect(self, image_path, save_image_dir=None):
 
@@ -62,7 +86,8 @@ class yolo_detect:
         try:
             if len(persons) == 1:
                 x1, y1, x2, y2 = persons[0]
-                img = self.crop_image(img, x1, y1, x2, y2, 47, 5, 40)
+                img = self.crop_image(img, x1, y1, x2, y2, 30, 10, 0)
+                # img = self.draw_rect(img, x1, y1, x2, y2)
                 is_cropped = True
             elif len(persons) > 1:
                 x_min = min([p[0] for p in persons])
@@ -77,7 +102,7 @@ class yolo_detect:
 
             filename = os.path.basename(image_path)
             full_path = os.path.join(save_image_dir, filename)
-            
+
             cv2.imwrite(full_path, img)
 
             return is_cropped
