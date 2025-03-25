@@ -2,14 +2,14 @@ from .photoExceptions import NextClassException, PreviousClassException
 import pygame
 import sys
 from photoplugins.cleanup import cleanup
-from .yolo import yolo_detect
+from .crop import Crop
 
 
 class confirmstep:
 
     def __init__(self):
         self.count = 0
-        self.yolo = yolo_detect()
+        self.yolo = Crop()
 
     def run(self, display=None, events=None, loopid=-1):
 
